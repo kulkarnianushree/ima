@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Inventory Management App</title>
+</head>
+<body>
+    <h1 style="background-color: brown; text-align: center; font-weight: bolder; font-family: Verdana, Geneva, Tahoma, sans-serif; padding-left: 0em; color: aliceblue;">Inventory Management App</h1>
+    <p style="color: darkblue; text-align: left; padding-left: 1em;">Welcome to Inventory Management app</p>
+    <form id="stock">
+        <label for="itemname">Item Name:</label>
+        <input type="text" id="itemname">
+        <label for="itemdescription">Description:</label>
+        <input type="text" id="itemdescription">
+        <label for="itemprize">Prize:</label>
+        <input type="tel" id="itemprize">
+        <label for="itemquantity">Quantity:</label>
+        <input type="tel" id="itemquantity">
+        <button type="button" id="submitbutton">Add Item</button>
+        <button type="button" id="buybutton">Buy</button>
+    </form>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.1/axios.min.js"></script>
+    <script>
+        const button = document.getElementById("submitbutton");
+        button.addEventListener("click", postItem);
+
+        function postItem(event) {
+            event.preventDefault();
+            const obj = {
+                "name": document.getElementById("itemname").value,
+                "description": document.getElementById("itemdescription").value,
+                "prize": document.getElementById("itemprize").value,
+                "quantity": document.getElementById("itemquantity").value
+            };
+            axios.post("https://crudcrud.com/api/937d168ede62485ab5e298ac82b60650/IMA", obj)
+                .then((result) => {
+                    console.log(result.data);
+                    createButton(); 
+                }).catch((error) => {
+                    console.log(error);
+                    
+                });
+        }
+        const button1 = document.getElementById("buybutton")
+        button1.addEventListener("click",buySomething)
+
+        function buySomething(event){
+           event.preventDefault();
+           axios.put("https://crudcrud.com/api/937d168ede62485ab5e298ac82b60650/IMA/660a61791492af03e8f1114a",{
+            "name": document.getElementById("itemname").value,
+            "description": document.getElementById("itemdescription").value,
+            "prize": document.getElementById("itemprize").value,
+            "quantity": document.getElementById("itemquantity").value - 1
+           }).then((result)=>{
+            console.log(result.data);
+           }).catch((error)=>{
+            console.log(error)
+           })
+           
+        }
+
+        
+    </script>
+</body>
+</html>
+
+
+
+            
+        
